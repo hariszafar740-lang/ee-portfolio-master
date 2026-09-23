@@ -30,3 +30,10 @@ echo ""
 (cd "$dir" && source *_env/bin/activate 2>/dev/null || true && PYTHONPATH=. pytest tests/)
 fi
 done
+
+## Unified CLI Orchestration
+
+Run all engineering simulation modules directly via `portfolio_cli.py`:
+bash
+# Run full portfolio test benchmark
+python3 portfolio_cli.py --benchmark
