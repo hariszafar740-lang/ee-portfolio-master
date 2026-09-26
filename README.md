@@ -37,3 +37,10 @@ Run all engineering simulation modules directly via `portfolio_cli.py`:
 bash
 # Run full portfolio test benchmark
 python3 portfolio_cli.py --benchmark
+
+## Automated Performance Profiling & Diagnostics
+
+Analyze algorithm bottleneck execution times and total function calls across all solver test suites:
+
+```bash
+python3 profile_portfolio.py
