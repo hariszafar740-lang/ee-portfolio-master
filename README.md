@@ -44,3 +44,9 @@ Analyze algorithm bottleneck execution times and total function calls across all
 
 ```bash
 python3 profile_portfolio.py
+
+## Security Vulnerability & Static Quality Audit
+
+Execute automated AST security vulnerability scanning and syntax checks across all solvers:
+bash
+python3 audit_portfolio.py
