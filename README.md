@@ -50,3 +50,10 @@ python3 profile_portfolio.py
 Execute automated AST security vulnerability scanning and syntax checks across all solvers:
 bash
 python3 audit_portfolio.py
+
+## Automated Release Bundling & Artifact Distribution
+
+Generate production tarballs and SHA-256 verification hashes for all simulation modules:
+
+```bash
+python3 build_release.py
