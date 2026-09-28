@@ -57,3 +57,7 @@ Generate production tarballs and SHA-256 verification hashes for all simulation 
 
 ```bash
 python3 build_release.py
+
+## Executive HTML Dashboard & Metrics Exporter
+
+Generate interactive HTML performance and compliance reports across all solvers:
