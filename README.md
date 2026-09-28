@@ -61,3 +61,8 @@ python3 build_release.py
 ## Executive HTML Dashboard & Metrics Exporter
 
 Generate interactive HTML performance and compliance reports across all solvers:
+
+## Live Executive Dashboard
+
+View the live interactive compliance and benchmark dashboard on GitHub Pages:
+🌐 **[Live Dashboard](https://hariszafar740-lang.github.io/ee-portfolio-master/)**
