@@ -22,10 +22,20 @@ SOLVERS = [
 def profile_solver(name, folder):
     solver_dir = ROOT_DIR / folder
     prof_file = solver_dir / "profile.prof"
-    
+
+    # If the solver repository has not been checked out alongside this
+    # master repository, there is nothing to profile. Report "N/A"
+    # instead of attempting (and silently mis-executing) the command.
+    if not solver_dir.exists():
+        return [name, "N/A", "N/A", "N/A"]
+
     cmd = (
         f"cd {solver_dir} && "
-        f"source *_env/bin/activate 2>/dev/null || true && "
+        # "source ... || true" is grouped in a subshell so that a failed
+        # `cd` short-circuits the whole chain instead of falling through
+        # to running pytest against the CURRENT working directory (see
+        # the equivalent note in portfolio_cli.py).
+        f"(source *_env/bin/activate 2>/dev/null || true) && "
         f"PYTHONPATH=. python3 -m cProfile -o profile.prof -m pytest tests/ > /dev/null 2>&1"
     )
     
