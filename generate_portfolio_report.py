@@ -20,19 +20,46 @@ SOLVERS = [
 
 def gather_solver_metrics(folder):
     solver_dir = ROOT_DIR / folder
-    
+
+    # If the solver repository has not been checked out alongside this
+    # master repository, there is nothing to test or scan. Report "N/A"
+    # rather than "FAILED"/"SECURE" -- those labels previously implied a
+    # real (and in the case of "SECURE", falsely reassuring) result even
+    # though no test run or security scan ever took place.
+    if not solver_dir.exists():
+        return "N/A", "N/A"
+
     # 1. Run pytest validation sweep
-    pytest_cmd = f"cd {solver_dir} && source *_env/bin/activate 2>/dev/null || true && PYTHONPATH=. pytest tests/"
+    # Group "source ... || true" so a failed `cd` (e.g. solver directory
+    # not checked out) short-circuits the whole chain instead of falling
+    # through to `pytest tests/` in the current working directory. See
+    # the equivalent note in portfolio_cli.py for the full rationale.
+    pytest_cmd = f"cd {solver_dir} && (source *_env/bin/activate 2>/dev/null || true) && PYTHONPATH=. pytest tests/"
     p_res = subprocess.run(pytest_cmd, shell=True, capture_output=True, text=True, executable="/bin/bash")
     test_status = "PASSED" if p_res.returncode == 0 else "FAILED"
 
     # 2. Run Bandit security check
     src_dir = solver_dir / "src"
-    bandit_cmd = f"bandit -r {src_dir} -q 2>/dev/null" if src_dir.exists() else "true"
-    b_res = subprocess.run(bandit_cmd, shell=True, capture_output=True, text=True)
-    sec_status = "SECURE" if b_res.returncode == 0 else "FLAGGED"
+    if src_dir.exists():
+        bandit_cmd = f"bandit -r {src_dir} -q 2>/dev/null"
+        b_res = subprocess.run(bandit_cmd, shell=True, capture_output=True, text=True)
+        sec_status = "SECURE" if b_res.returncode == 0 else "FLAGGED"
+    else:
+        sec_status = "N/A"
 
     return test_status, sec_status
+
+def render_badge(status, good_status):
+    """Render a status badge: green for the "good" status, grey for the
+    neutral "N/A" status (repo not checked out / nothing scanned), and
+    red/orange for any other (actual failure/flagged) status."""
+    if status == good_status:
+        color = "#2e7d32"  # green
+    elif status == "N/A":
+        color = "#757575"  # grey - no data, not a failure
+    else:
+        color = "#c62828"  # red
+    return f'<span style="background-color: {color}; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold;">{status}</span>'
 
 def generate_html_report():
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -40,8 +67,8 @@ def generate_html_report():
     rows_html = ""
     for item in SOLVERS:
         test_status, sec_status = gather_solver_metrics(item["folder"])
-        test_badge = f'<span style="background-color: #2e7d32; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold;">{test_status}</span>' if test_status == "PASSED" else f'<span style="background-color: #c62828; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold;">{test_status}</span>'
-        sec_badge = f'<span style="background-color: #1565c0; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold;">{sec_status}</span>' if sec_status == "SECURE" else f'<span style="background-color: #ef6c00; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold;">{sec_status}</span>'
+        test_badge = render_badge(test_status, "PASSED")
+        sec_badge = render_badge(sec_status, "SECURE")
         
         rows_html += f"""
         <tr>

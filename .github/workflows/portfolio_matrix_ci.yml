@@ -25,6 +25,18 @@ jobs:
     - name: Checkout Master Repository
       uses: actions/checkout@v4
 
+    # The solver projects are separate, independent repositories (no git
+    # submodules or vendored copies exist in this repo), so they must be
+    # explicitly checked out into a matching subdirectory before any
+    # "cd ${{ matrix.repo }}" step can work. Without this step the job
+    # fails immediately with "No such file or directory" for every matrix
+    # entry (confirmed via repeated CI failures on this workflow).
+    - name: Checkout Solver Repository (${{ matrix.repo }})
+      uses: actions/checkout@v4
+      with:
+        repository: hariszafar740-lang/${{ matrix.repo }}
+        path: ${{ matrix.repo }}
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
