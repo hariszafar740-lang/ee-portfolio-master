@@ -1,27 +1,20 @@
 version: 2
 updates:
+  # This repository (ee-portfolio-master) only contains the orchestration
+  # scripts and their own requirements.txt at the repository root.
+  #
+  # NOTE: The four solver projects (power-systems-newton-raphson-solver,
+  # solar-pv-mppt-dynamic-solver, bess-soc-dynamics-solver,
+  # inverter-grid-control-solver) are separate, independent GitHub
+  # repositories. They are NOT checked out into this repository (no git
+  # submodules, no vendored copies), so Dependabot cannot scan them from
+  # here. Previously this file declared "pip" entries for those paths,
+  # which do not exist in this repository's working tree, causing every
+  # scheduled Dependabot run to fail (confirmed via repeated "Dependabot
+  # Updates" workflow failures). Each of those four repositories should
+  # define its own dependabot.yml instead.
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
-
-  - package-ecosystem: "pip"
-    directory: "/power-systems-newton-raphson-solver"
-    schedule:
-      interval: "weekly"
-
-  - package-ecosystem: "pip"
-    directory: "/solar-pv-mppt-dynamic-solver"
-    schedule:
-      interval: "weekly"
-
-  - package-ecosystem: "pip"
-    directory: "/bess-soc-dynamics-solver"
-    schedule:
-      interval: "weekly"
-
-  - package-ecosystem: "pip"
-    directory: "/inverter-grid-control-solver"
-    schedule:
-      interval: "weekly"
