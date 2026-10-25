@@ -69,7 +69,6 @@ View the live interactive compliance and benchmark dashboard on GitHub Pages:
 
 ## Security & Automated Quality Gates
 
-* **Dependabot:** Weekly automated dependency vulnerability scanning enabled via `.github/dependabot.yml`.
 * **Pre-commit Hooks:** Local quality gate enforced via `./setup_hooks.sh` to block commits if test suites or security audits fail.
 
 ## System Architecture & Physical Flowchart

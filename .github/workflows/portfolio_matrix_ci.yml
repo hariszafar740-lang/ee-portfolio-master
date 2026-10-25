@@ -46,6 +46,10 @@ jobs:
       run: |
         cd ${{ matrix.repo }}
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        pip install pytest
+        pip install "setuptools>=77.0" wheel build pytest ruff
+        if [ -f pyproject.toml ]; then
+          pip install --no-build-isolation -e .
+        elif [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        fi
         PYTHONPATH=. pytest tests/
