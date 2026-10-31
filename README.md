@@ -33,31 +33,27 @@ echo ""
 (cd "$dir" && source *_env/bin/activate 2>/dev/null || true && PYTHONPATH=. pytest tests/)
 fi
 done
-
-~~~
+```
 ## Unified CLI Orchestration
 
 Run all engineering simulation modules directly via `portfolio_cli.py`:
 ```bash
-~~~
 # Run full portfolio test benchmark
 python3 portfolio_cli.py --benchmark
-
+```
 ## Automated Performance Profiling & Diagnostics
 
 Analyze algorithm bottleneck execution times and total function calls across all solver test suites:
 
 ```bash
 python3 profile_portfolio.py
-
-~~~
+```
 ## Security Vulnerability & Static Quality Audit
 
 Execute automated AST security vulnerability scanning and syntax checks across all solvers:
 ```bash
 python3 audit_portfolio.py
-
-~~~
+```
 ## Automated Release Bundling & Artifact Distribution
 
 Generate production tarballs and SHA-256 verification hashes for all simulation modules:
@@ -65,7 +61,7 @@ Generate production tarballs and SHA-256 verification hashes for all simulation 
 ```bash
 python3 build_release.py
 
-~~~
+```
 ## Executive HTML Dashboard & Metrics Exporter
 
 Generate interactive HTML performance and compliance reports across all solvers:
