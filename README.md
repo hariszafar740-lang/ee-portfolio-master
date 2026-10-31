@@ -2,7 +2,10 @@
 
 [![Portfolio Matrix CI](https://github.com/hariszafar740-lang/ee-portfolio-master/actions/workflows/portfolio_matrix_ci.yml/badge.svg)](https://github.com/hariszafar740-lang/ee-portfolio-master/actions/workflows/portfolio_matrix_ci.yml)
 
-A suite of production-grade Python solvers for power systems engineering, renewable integration, battery energy storage modeling, and microgrid inverter dynamic control. Developed in Kali Linux with `pytest` unit test suites, modular architecture, and GitHub Actions CI pipelines.
+A suite of Python solvers for power systems engineering, renewable integration, battery energy storage modeling, and microgrid inverter dynamic control.
+Developed in Kali Linux with `pytest` unit test suites, modular architecture, and GitHub Actions CI pipelines.
+
+I keep these six solvers in one repository because I run them together, and the dashboard is probably the fastest way to see what each one verifies.
 
 ---
 
@@ -10,17 +13,17 @@ A suite of production-grade Python solvers for power systems engineering, renewa
 
 | Repository | CI Status | Domain | Stack |
 | :--- | :--- | :--- | :--- |
-| ⚡ **[Power Systems Newton-Raphson Solver](https://github.com/hariszafar740-lang/power-systems-newton-raphson-solver)** | ![CI](https://github.com/hariszafar740-lang/power-systems-newton-raphson-solver/actions/workflows/ci.yml/badge.svg) | Load Flow & Grid Analysis | Python, NumPy, pytest |
-| ☀️ **[Solar PV Dynamic MPPT Solver](https://github.com/hariszafar740-lang/solar-pv-mppt-dynamic-solver)** | ![CI](https://github.com/hariszafar740-lang/solar-pv-mppt-dynamic-solver/actions/workflows/ci.yml/badge.svg) | Photovoltaics & Control | Python, NumPy, Matplotlib |
-| 🔋 **[BESS SoC Dynamics Solver](https://github.com/hariszafar740-lang/bess-soc-dynamics-solver)** | ![CI](https://github.com/hariszafar740-lang/bess-soc-dynamics-solver/actions/workflows/ci.yml/badge.svg) | Energy Storage & Thermal | Python, NumPy, Matplotlib |
-| 🌐 **[Grid-Forming Inverter Control Solver](https://github.com/hariszafar740-lang/inverter-grid-control-solver)** | ![CI](https://github.com/hariszafar740-lang/inverter-grid-control-solver/actions/workflows/ci.yml/badge.svg) | Microgrids & Power Electronics | Python, NumPy, pytest |
+| [Power Systems Newton-Raphson Solver](https://github.com/hariszafar740-lang/power-systems-newton-raphson-solver) | ![CI](https://github.com/hariszafar740-lang/power-systems-newton-raphson-solver/actions/workflows/ci.yml/badge.svg) | Load Flow & Grid Analysis | Python, NumPy, pytest |
+| [Solar PV Dynamic MPPT Solver](https://github.com/hariszafar740-lang/solar-pv-mppt-dynamic-solver) | ![CI](https://github.com/hariszafar740-lang/solar-pv-mppt-dynamic-solver/actions/workflows/ci.yml/badge.svg) | Photovoltaics & Control | Python, NumPy, Matplotlib |
+| [BESS SoC Dynamics Solver](https://github.com/hariszafar740-lang/bess-soc-dynamics-solver) | ![CI](https://github.com/hariszafar740-lang/bess-soc-dynamics-solver/actions/workflows/ci.yml/badge.svg) | Energy Storage & Thermal | Python, NumPy, Matplotlib |
+| [Grid-Forming Inverter Control Solver](https://github.com/hariszafar740-lang/inverter-grid-control-solver) | ![CI](https://github.com/hariszafar740-lang/inverter-grid-control-solver/actions/workflows/ci.yml/badge.svg) | Microgrids & Power Electronics | Python, NumPy, pytest |
 
 ---
 
 ## Verification & Test Execution Across Portfolio
 
 To execute unit tests across all repositories locally:
-bash
+```bash
 cd ~/ee_portfolio
 for dir in */; do
 if [ -d "$dir/tests" ]; then
@@ -31,10 +34,12 @@ echo ""
 fi
 done
 
+~~~
 ## Unified CLI Orchestration
 
 Run all engineering simulation modules directly via `portfolio_cli.py`:
-bash
+```bash
+~~~
 # Run full portfolio test benchmark
 python3 portfolio_cli.py --benchmark
 
@@ -45,12 +50,14 @@ Analyze algorithm bottleneck execution times and total function calls across all
 ```bash
 python3 profile_portfolio.py
 
+~~~
 ## Security Vulnerability & Static Quality Audit
 
 Execute automated AST security vulnerability scanning and syntax checks across all solvers:
-bash
+```bash
 python3 audit_portfolio.py
 
+~~~
 ## Automated Release Bundling & Artifact Distribution
 
 Generate production tarballs and SHA-256 verification hashes for all simulation modules:
@@ -58,18 +65,18 @@ Generate production tarballs and SHA-256 verification hashes for all simulation 
 ```bash
 python3 build_release.py
 
+~~~
 ## Executive HTML Dashboard & Metrics Exporter
 
 Generate interactive HTML performance and compliance reports across all solvers:
 
 ## Live Executive Dashboard
 
-View the live interactive compliance and benchmark dashboard on GitHub Pages:
-🌐 **[Live Dashboard](https://hariszafar740-lang.github.io/ee-portfolio-master/)**
+View the live interactive compliance and benchmark dashboard on GitHub Pages: **[Live Dashboard](https://hariszafar740-lang.github.io/ee-portfolio-master/)**
 
 ## Security & Automated Quality Gates
 
-* **Pre-commit Hooks:** Local quality gate enforced via `./setup_hooks.sh` to block commits if test suites or security audits fail.
+* Pre-commit Hooks: Local quality gate enforced via `./setup_hooks.sh` to block commits if test suites or security audits fail.
 
 ## System Architecture & Physical Flowchart
 ```mermaid
