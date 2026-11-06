@@ -20,6 +20,10 @@ jobs:
           - solar-pv-mppt-dynamic-solver
           - bess-soc-dynamics-solver
           - inverter-grid-control-solver
+          - energy-transition-model
+        exclude:
+          - repo: energy-transition-model
+            python-version: '3.10'
 
     steps:
     - name: Checkout Master Repository
